@@ -1,66 +1,75 @@
 import { useFormik } from 'formik';
 import {type ReactElement, useState} from "react";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
+import {formSchema} from "../schemas/formSchema.ts";
+
+
 
 const Form = ():ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showRepPassword, setShowRepPassword] = useState<boolean>(false);
 
-    const formik = useFormik({
+    const { values, errors, touched, handleSubmit, handleChange,} = useFormik({
         initialValues: {
             name: '',
             email: '',
             password: '',
             repPassword: '',
         },
-        onSubmit: (values, {resetForm}) =>{
+        onSubmit: (values,  {resetForm}) =>{
             console.log("Submitted", values)
             resetForm()
-        }
+        },
+        validationSchema: formSchema
+
     })
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
                 <label htmlFor="name">Name</label>
                 <input
                     type="text"
                     name="name"
-                    onChange={formik.handleChange}
-                    value={formik.values.name}
+                    onChange={handleChange}
+                    value={values.name}
                 />
+                {errors.name && touched.name && <div className="error">{errors.name}</div>}
             </div>
             <div>
                 <label htmlFor="email">Email</label>
                 <input
                     type="email"
                     name="email"
-                    onChange={formik.handleChange}
-                    value={formik.values.email}
+                    onChange={handleChange}
+                    value={values.email}
                 />
+                {errors.email && touched.email && <div className="error">{errors.email}</div>}
             </div>
             <div>
                 <label htmlFor="password">Password</label>
                 <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
+                    onChange={handleChange}
+                    value={values.password}
                 />
                 <span onClick={() => setShowPassword(prev => !prev)}>
                     {showPassword ? <FaEye/> : <FaEyeSlash/>}
                 </span>
+                {errors.password && touched.password && <div className="error">{errors.password}</div>}
             </div>
             <div>
                 <label htmlFor="repPassword">Repeat password</label>
                 <input
                     type={showRepPassword ? 'text' : 'password'}
                     name="repPassword"
-                    onChange={formik.handleChange}
-                    value={formik.values.repPassword}
+                    onChange={handleChange}
+                    value={values.repPassword}
                 />
                 <span onClick={() => setShowRepPassword(prev => !prev)}>
                     {showRepPassword ? <FaEye/> : <FaEyeSlash/>}
                 </span>
+                {errors.repPassword && touched.repPassword && <div className="error">{errors.repPassword}</div>}
             </div>
             <div>
                 <button type="submit">Submit</button>
