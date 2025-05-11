@@ -1,4 +1,4 @@
-import { useFormik } from 'formik';
+import { useFormik} from 'formik';
 import {type ReactElement, useState} from "react";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {formSchema} from "../schemas/formSchema.ts";
@@ -9,7 +9,7 @@ const Form = ():ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [showRepPassword, setShowRepPassword] = useState<boolean>(false);
 
-    const { values, errors, touched, handleSubmit, handleChange,} = useFormik({
+    const { values, errors, touched, handleSubmit, handleChange, handleBlur} = useFormik({
         initialValues: {
             name: '',
             email: '',
@@ -30,9 +30,11 @@ const Form = ():ReactElement => {
                 <input
                     type="text"
                     name="name"
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.name}
                     className={errors.name && touched.name ? 'input-error' : ''}
+
                 />
                 {errors.name && touched.name && <div className="error">{errors.name}</div>}
             </div>
@@ -41,6 +43,7 @@ const Form = ():ReactElement => {
                 <input
                     type="email"
                     name="email"
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.email}
                     className={errors.email && touched.email ? 'input-error' : ''}
@@ -52,6 +55,7 @@ const Form = ():ReactElement => {
                 <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.password}
                     className={errors.password && touched.password ? 'input-error' : ''}
@@ -66,6 +70,7 @@ const Form = ():ReactElement => {
                 <input
                     type={showRepPassword ? 'text' : 'password'}
                     name="repPassword"
+                    onBlur={handleBlur}
                     onChange={handleChange}
                     value={values.repPassword}
                     className={errors.repPassword && touched.repPassword ? 'input-error' : ''}

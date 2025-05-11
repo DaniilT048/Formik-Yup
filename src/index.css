@@ -78,12 +78,12 @@ button:focus-visible {
 form{
   border: 1px solid blue;
   padding: 16px;
-  background-color: darkgray;
+  background-color: darkblue;
 }
 
 label{
   margin: 6px;
-  color: blue;
+  color: black
 }
 
 button{
