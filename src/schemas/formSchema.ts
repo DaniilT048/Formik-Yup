@@ -2,7 +2,6 @@ import * as yup from 'yup';
 
 const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-// @ts-ignore
 export const formSchema = yup.object().shape({
     name: yup
         .string()

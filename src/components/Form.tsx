@@ -32,6 +32,7 @@ const Form = ():ReactElement => {
                     name="name"
                     onChange={handleChange}
                     value={values.name}
+                    className={errors.name && touched.name ? 'input-error' : ''}
                 />
                 {errors.name && touched.name && <div className="error">{errors.name}</div>}
             </div>
@@ -42,6 +43,7 @@ const Form = ():ReactElement => {
                     name="email"
                     onChange={handleChange}
                     value={values.email}
+                    className={errors.email && touched.email ? 'input-error' : ''}
                 />
                 {errors.email && touched.email && <div className="error">{errors.email}</div>}
             </div>
@@ -52,6 +54,7 @@ const Form = ():ReactElement => {
                     name="password"
                     onChange={handleChange}
                     value={values.password}
+                    className={errors.password && touched.password ? 'input-error' : ''}
                 />
                 <span onClick={() => setShowPassword(prev => !prev)}>
                     {showPassword ? <FaEye/> : <FaEyeSlash/>}
@@ -65,6 +68,7 @@ const Form = ():ReactElement => {
                     name="repPassword"
                     onChange={handleChange}
                     value={values.repPassword}
+                    className={errors.repPassword && touched.repPassword ? 'input-error' : ''}
                 />
                 <span onClick={() => setShowRepPassword(prev => !prev)}>
                     {showRepPassword ? <FaEye/> : <FaEyeSlash/>}
