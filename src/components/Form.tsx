@@ -4,11 +4,20 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 
 const Form = ():ReactElement => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
-    const formik = useFormik({
-        initialValues: {name: '', email: '', password: ''},
-        onSubmit: (values) => console.log("Submitted", values)
-    })
+    const [showRepPassword, setShowRepPassword] = useState<boolean>(false);
 
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            email: '',
+            password: '',
+            repPassword: '',
+        },
+        onSubmit: (values, {resetForm}) =>{
+            console.log("Submitted", values)
+            resetForm()
+        }
+    })
     return (
         <form onSubmit={formik.handleSubmit}>
             <div>
@@ -37,14 +46,25 @@ const Form = ():ReactElement => {
                     onChange={formik.handleChange}
                     value={formik.values.password}
                 />
-                <span onClick={() => setShowPassword (prev=> !prev)}>
-                    {showPassword ? <FaEye/>: <FaEyeSlash/>}
+                <span onClick={() => setShowPassword(prev => !prev)}>
+                    {showPassword ? <FaEye/> : <FaEyeSlash/>}
+                </span>
+            </div>
+            <div>
+                <label htmlFor="repPassword">Repeat password</label>
+                <input
+                    type={showRepPassword ? 'text' : 'password'}
+                    name="repPassword"
+                    onChange={formik.handleChange}
+                    value={formik.values.repPassword}
+                />
+                <span onClick={() => setShowRepPassword(prev => !prev)}>
+                    {showRepPassword ? <FaEye/> : <FaEyeSlash/>}
                 </span>
             </div>
             <div>
                 <button type="submit">Submit</button>
             </div>
-
         </form>
     );
 };
